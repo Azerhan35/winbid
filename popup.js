@@ -45,7 +45,7 @@ generateBtn.addEventListener('click', async () => {
         return;
       }
 
-      status.textContent = 'Generating proposal...';
+      status.textContent = 'Generating WinBid...';
 
       try {
         const res = await fetch('https://winbid-flame.vercel.app/api/generate', {
