@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProposalAI - Win More Upwork, Freelancer & more Jobs</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #222; }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      border-bottom: 1px solid #eee;
+    }
+    nav .logo { font-size: 22px; font-weight: 700; color: #14a800; }
+    nav a {
+      background: #14a800;
+      color: white;
+      padding: 10px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    nav a:hover { background: #108a00; }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: linear-gradient(135deg, #f0fff4, #fff);
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      color: #111;
+    }
+    .hero h1 span { color: #14a800; }
+    .hero p {
+      font-size: 20px;
+      color: #555;
+      max-width: 600px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: #14a800;
+      color: white;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .btn-primary:hover { background: #108a00; }
+    .btn-secondary {
+      background: white;
+      color: #14a800;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 700;
+      border: 2px solid #14a800;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding: 50px 20px;
+      background: #f9f9f9;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat .num { font-size: 40px; font-weight: 800; color: #14a800; }
+    .stat .label { font-size: 15px; color: #666; margin-top: 4px; }
+
+    .how {
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .how h2 { font-size: 36px; font-weight: 700; margin-bottom: 50px; }
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .step {
+      flex: 1;
+      min-width: 220px;
+      max-width: 260px;
+      text-align: center;
+    }
+    .step .icon {
+      width: 64px;
+      height: 64px;
+      background: #e6f9e6;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 28px;
+    }
+    .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step p { font-size: 14px; color: #666; line-height: 1.6; }
+
+    .pricing {
+      background: #f9f9f9;
+      padding: 80px 20px;
+      text-align: center;
+    }
+    .pricing h2 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+    .pricing > p { font-size: 16px; color: #666; margin-bottom: 40px; }
+    .plans {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .plan {
+      background: white;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 36px 32px;
+      min-width: 260px;
+      max-width: 300px;
+    }
+    .plan.popular {
+      border: 2px solid #14a800;
+      position: relative;
+    }
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #14a800;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+    }
+    .plan h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .plan .price { font-size: 42px; font-weight: 800; color: #14a800; margin: 16px 0; }
+    .plan .price span { font-size: 16px; color: #888; font-weight: 400; }
+    .plan ul { list-style: none; margin-bottom: 28px; text-align: left; }
+    .plan ul li { font-size: 14px; color: #444; padding: 6px 0; }
+    .plan ul li::before { content: "✓ "; color: #14a800; font-weight: 700; }
+    .plan a {
+      display: block;
+      background: #14a800;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .plan a:hover { background: #108a00; }
+
+    .faq {
+      padding: 80px 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .faq h2 { font-size: 36px; font-weight: 700; margin-bottom: 40px; text-align: center; }
+    .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+    .faq-item h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .faq-item p { font-size: 14px; color: #666; line-height: 1.6; }
+
+    footer {
+      background: #111;
+      color: #aaa;
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 13px;
+    }
+    footer span { color: #14a800; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">ProposalAI</div>
+  <a href="#pricing">Try for Free</a>
+</nav>
+
+<section class="hero">
+  <h1>Win More Upwork, Freelancer & more Jobs<br>with <span>AI-Powered Proposals</span></h1>
+  <p>Stop spending hours writing proposals. Let AI read the job post and generate a personalized, winning proposal in seconds.</p>
+  <div class="hero-btns">
+    <a href="#pricing" class="btn-primary">Get Started Free</a>
+    <a href="#how" class="btn-secondary">See How It Works</a>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat">
+    <div class="num">30s</div>
+    <div class="label">To generate a proposal</div>
+  </div>
+  <div class="stat">
+    <div class="num">3x</div>
+    <div class="label">More jobs won</div>
+  </div>
+  <div class="stat">
+    <div class="num">10k+</div>
+    <div class="label">Proposals generated</div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="icon">🔍</div>
+      <h3>Open any job post</h3>
+      <p>Browse Upwork, Freelancer & more as usual and open any job that interests you.</p>
+    </div>
+    <div class="step">
+      <div class="icon">⚡</div>
+      <h3>Click ProposalAI</h3>
+      <p>Click the extension icon. AI reads the job post instantly.</p>
+    </div>
+    <div class="step">
+      <div class="icon">✉️</div>
+      <h3>Send your proposal</h3>
+      <p>Copy the personalized proposal and send it. Done in 30 seconds.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <h2>Simple Pricing</h2>
+  <p>Start free, upgrade when you're ready</p>
+  <div class="plans">
+    <div class="plan">
+      <h3>Free</h3>
+      <div class="price">$0 <span>/mo</span></div>
+      <ul>
+        <li>5 proposals per month</li>
+        <li>Basic AI model</li>
+        <li>Chrome extension</li>
+      </ul>
+      <a href="#">Get Started</a>
+    </div>
+    <div class="plan popular">
+      <div class="popular-badge">MOST POPULAR</div>
+      <h3>Pro</h3>
+      <div class="price">$15 <span>/mo</span></div>
+      <ul>
+        <li>Unlimited proposals</li>
+        <li>GPT-4o powered</li>
+        <li>Profile customization</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#">Start Free Trial</a>
+    </div>
+    <div class="plan">
+      <h3>Team</h3>
+      <div class="price">$39 <span>/mo</span></div>
+      <ul>
+        <li>5 team members</li>
+        <li>Unlimited proposals</li>
+        <li>Team analytics</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <h4>Do I need an OpenAI account?</h4>
+    <p>Yes, you need an OpenAI API key. It costs around $0.01 per proposal — very affordable.</p>
+  </div>
+  <div class="faq-item">
+    <h4>Does it work on Freelancer.com too?</h4>
+    <p>Upwork, Freelancer & more support is fully live. Freelancer.com support is coming soon.</p>
+  </div>
+  <div class="faq-item">
+    <h4>Is my data safe?</h4>
+    <p>We never store your proposals or API keys. Everything stays in your browser.</p>
+  </div>
+  <div class="faq-item">
+    <h4>Can I cancel anytime?</h4>
+    <p>Yes, no contracts. Cancel anytime with one click.</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>ProposalAI</span>. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

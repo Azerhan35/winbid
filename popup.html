@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 380px;
+      min-height: 400px;
+      font-family: Arial, sans-serif;
+      padding: 16px;
+      background: #f8f8f8;
+    }
+    h2 {
+      font-size: 16px;
+      color: #14a800;
+      margin: 0 0 12px;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      resize: none;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #14a800;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    button:hover { background: #108a00; }
+    button:disabled { background: #aaa; cursor: not-allowed; }
+    #result {
+      width: 100%;
+      height: 180px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      resize: none;
+      box-sizing: border-box;
+      display: none;
+    }
+    #copyBtn {
+      display: none;
+      background: #0073bb;
+    }
+    #copyBtn:hover { background: #005f99; }
+    #status {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    label {
+      font-size: 12px;
+      color: #444;
+      display: block;
+      margin-bottom: 4px;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 7px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h2>WinBid</h2>
+
+  <label>OpenAI API Key</label>
+  <input type="password" id="apiKey" placeholder="sk-..." />
+
+  <label>About you (optional)</label>
+  <textarea id="profile" placeholder="Example: 5 years of web development experience, React and Node.js expert..."></textarea>
+
+  <button id="generateBtn">Generate WinBid</button>
+
+  <div id="status"></div>
+  <textarea id="result" readonly></textarea>
+  <button id="copyBtn">Copy</button>
+
+  <script src="popup.js"></script>
+</body>
+</html>
