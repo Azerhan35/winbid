@@ -63,7 +63,7 @@ export default async function handler(req, res) {
         'Authorization': `Bearer ${resendKey}`
       },
       body: JSON.stringify({
-        from: 'WinBid <noreply@winbid.ai>',
+        from: 'WinBid <onboarding@resend.dev>',
         to: email,
         subject: 'Your WinBid License Key',
         html: `
