@@ -2,24 +2,24 @@ const generateBtn = document.getElementById('generateBtn');
 const copyBtn = document.getElementById('copyBtn');
 const result = document.getElementById('result');
 const status = document.getElementById('status');
-const apiKeyInput = document.getElementById('apiKey');
+const licenseInput = document.getElementById('apiKey');
 const profileInput = document.getElementById('profile');
 
-chrome.storage.local.get(['apiKey', 'profile'], (data) => {
-  if (data.apiKey) apiKeyInput.value = data.apiKey;
+chrome.storage.local.get(['licenseKey', 'profile'], (data) => {
+  if (data.licenseKey) licenseInput.value = data.licenseKey;
   if (data.profile) profileInput.value = data.profile;
 });
 
 generateBtn.addEventListener('click', async () => {
-  const apiKey = apiKeyInput.value.trim();
+  const licenseKey = licenseInput.value.trim();
   const profile = profileInput.value.trim();
 
-  if (!apiKey) {
-    status.textContent = 'Please enter your API key.';
+  if (!licenseKey) {
+    status.textContent = 'Please enter your license key.';
     return;
   }
 
-  chrome.storage.local.set({ apiKey, profile });
+  chrome.storage.local.set({ licenseKey, profile });
 
   generateBtn.disabled = true;
   status.textContent = 'Reading job post...';
@@ -31,12 +31,12 @@ generateBtn.addEventListener('click', async () => {
 
     const supportedSites = ['upwork.com', 'freelancer.com', 'fiverr.com', 'guru.com', 'peopleperhour.com'];
     const isSupported = supportedSites.some(site => tab.url.includes(site));
+
     if (!isSupported) {
       status.textContent = 'Please open a job post on Upwork, Freelancer, Fiverr, Guru or PeoplePerHour.';
+      generateBtn.disabled = false;
+      return;
     }
-      
-    
-    
 
     chrome.tabs.sendMessage(tab.id, { action: 'getJobDetails' }, async (response) => {
       if (!response || !response.jobDetails) {
@@ -47,47 +47,26 @@ generateBtn.addEventListener('click', async () => {
 
       status.textContent = 'Generating proposal...';
 
-      const jobDetails = response.jobDetails;
-
-      const prompt = `You are an experienced freelancer. Write a personalized, professional and compelling proposal for the following job post. Always write the proposal in English, regardless of the job post language.
-
-İş İlanı:
-${jobDetails}
-
-${profile ? `Freelancer Profili:\n${profile}` : ''}
-
-Teklif şu özelliklere sahip olsun:
-- İlk cümle ilanla doğrudan ilgili olsun, "Dear Client" ile başlama
-- 150-200 kelime arası olsun
-- Somut değer öner
-- Samimi ve özgün bir ton kullan
-- Sonda kısa bir soru sor`;
-
       try {
-        const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        const res = await fetch('https://winbid-flame.vercel.app/api/generate', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'gpt-4o-mini',
-            messages: [{ role: 'user', content: prompt }],
-            max_tokens: 400,
-            temperature: 0.7
+            licenseKey,
+            jobDetails: response.jobDetails,
+            profile
           })
         });
 
         const data = await res.json();
 
         if (data.error) {
-          status.textContent = 'Hata: ' + data.error.message;
+          status.textContent = 'Error: ' + data.error;
           generateBtn.disabled = false;
           return;
         }
 
-        const proposal = data.choices[0].message.content;
-        result.value = proposal;
+        result.value = data.proposal;
         result.style.display = 'block';
         copyBtn.style.display = 'block';
         status.textContent = 'Proposal ready!';
