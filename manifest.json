@@ -13,7 +13,8 @@
     "https://www.freelancer.com/*",
     "https://www.fiverr.com/*",
     "https://www.guru.com/*",
-    "https://www.peopleperhour.com/*"
+    "https://www.peopleperhour.com/*",
+    "https://winbid-flame.vercel.app/*"
 ],
   "action": {
     "default_popup": "popup.html",

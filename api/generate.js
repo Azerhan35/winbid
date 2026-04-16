@@ -1,4 +1,4 @@
-import Anthropic from "@anthropic-ai/sdk";
+
 
 const openaiKey = process.env.OPENAI_API_KEY;
 const supabaseUrl = process.env.SUPABASE_URL;
