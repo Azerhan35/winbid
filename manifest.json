@@ -5,7 +5,6 @@
   "description": "Generate winning proposals for Upwork, Freelancer, Fiverr and more in seconds",
   "permissions": [
     "activeTab",
-    "scripting",
     "storage"
   ],
   "host_permissions": [
