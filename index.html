@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WinBid — Win More Freelance Jobs</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060608;
+  --surface: #0e0e12;
+  --surface2: #16161c;
+  --border: rgba(255,255,255,0.07);
+  --accent: #6c5ce7;
+  --accent2: #a29bfe;
+  --green: #00cec9;
+  --amber: #fdcb6e;
+  --text: #f0f0f5;
+  --muted: rgba(240,240,245,0.45);
+  --faint: rgba(240,240,245,0.12);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+/* NOISE TEXTURE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(6,6,8,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--text);
+  text-decoration: none;
+}
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--accent);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.logo-icon svg { width: 20px; height: 20px; }
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.nav-cta:hover { opacity: 0.85; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108,92,231,0.18) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface2);
+  border: 1px solid rgba(108,92,231,0.3);
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--accent2);
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+.badge-dot {
+  width: 7px; height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(42px, 7vw, 80px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  max-width: 800px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+h1 .accent { color: var(--accent2); }
+h1 .green { color: var(--green); }
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--muted);
+  max-width: 520px;
+  margin: 24px auto 48px;
+  font-weight: 300;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 0 40px rgba(108,92,231,0.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 60px rgba(108,92,231,0.5); }
+.btn-ghost {
+  background: var(--faint);
+  color: var(--text);
+  padding: 16px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  transition: background .2s;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+/* PLATFORMS */
+.platforms {
+  margin-top: 72px;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.platforms p {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.platform-list {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.platform-pill {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* MOCKUP */
+.mockup-section {
+  padding: 40px 24px 100px;
+  display: flex;
+  justify-content: center;
+}
+.mockup-wrap {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+  animation: fadeUp 0.8s 0.5s ease both;
+}
+.mockup-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(108,92,231,0.2);
+}
+.mockup-bar {
+  background: var(--accent);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mockup-bar span {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+.mockup-dots { display: flex; gap: 6px; }
+.mockup-dots span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+}
+.mockup-body { padding: 20px; }
+.mockup-field {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.mockup-field label { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+.mockup-field .value { color: var(--text); font-size: 13px; }
+.mockup-btn {
+  background: #14a800;
+  color: #fff;
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+.mockup-status { text-align: center; color: var(--green); font-size: 13px; margin-bottom: 12px; }
+.mockup-result {
+  background: rgba(0,206,201,0.06);
+  border: 1px solid rgba(0,206,201,0.15);
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.mockup-copy {
+  background: #0984e3;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 12px;
+}
+.mockup-glow {
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(108,92,231,0.2) 0%, transparent 70%);
+  bottom: -100px; right: -100px;
+  pointer-events: none;
+}
+
+/* STATS */
+.stats {
+  padding: 60px 24px;
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 40px 48px;
+  text-align: center;
+  flex: 1;
+  min-width: 160px;
+  max-width: 260px;
+}
+.stat:first-child { border-radius: 12px 0 0 12px; }
+.stat:last-child { border-radius: 0 12px 12px 0; }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--accent2);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label { font-size: 14px; color: var(--muted); }
+
+/* HOW IT WORKS */
+.section { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+.section-tag {
+  display: inline-block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent2);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.section-sub { font-size: 18px; color: var(--muted); max-width: 520px; }
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2px;
+  margin-top: 60px;
+}
+.step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 36px;
+  position: relative;
+  transition: border-color .2s;
+}
+.step:first-child { border-radius: 12px 0 0 12px; }
+.step:last-child { border-radius: 0 12px 12px 0; }
+.step:hover { border-color: rgba(108,92,231,0.4); }
+.step-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--faint);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.step h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.step p { font-size: 15px; color: var(--muted); }
+
+/* FEATURES */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 60px;
+}
+.feature {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px;
+  transition: border-color .2s, transform .2s;
+}
+.feature:hover { border-color: rgba(108,92,231,0.3); transform: translateY(-3px); }
+.feature-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+.feature h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.feature p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* PRICING */
+.pricing-wrap {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 60px;
+  flex-wrap: wrap;
+}
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+  width: 300px;
+  position: relative;
+}
+.pricing-card.featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 40px rgba(108,92,231,0.2);
+}
+.featured-badge {
+  position: absolute;
+  top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 100px;
+}
+.pricing-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.pricing-price {
+  font-family: 'Syne', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.pricing-price sup { font-size: 24px; vertical-align: top; margin-top: 10px; display: inline-block; }
+.pricing-price sub { font-size: 16px; color: var(--muted); font-weight: 400; }
+.pricing-desc { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+.pricing-features { list-style: none; margin-bottom: 32px; }
+.pricing-features li {
+  font-size: 14px;
+  color: var(--muted);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pricing-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
+.pricing-btn {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.pricing-btn:hover { opacity: 0.85; }
+.pricing-btn.primary { background: var(--accent); color: #fff; }
+.pricing-btn.ghost { background: var(--faint); color: var(--text); border: 1px solid var(--border); }
+
+/* FAQ */
+.faq-list { margin-top: 48px; max-width: 700px; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+}
+.faq-item h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.faq-item p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+/* CTA SECTION */
+.cta-section {
+  margin: 60px 24px 100px;
+  background: linear-gradient(135deg, var(--accent) 0%, #a29bfe 100%);
+  border-radius: 24px;
+  padding: 80px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+.cta-section p { font-size: 18px; color: rgba(255,255,255,0.75); margin-bottom: 36px; }
+.cta-section .btn-white {
+  background: #fff;
+  color: var(--accent);
+  padding: 16px 36px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: transform .2s;
+}
+.cta-section .btn-white:hover { transform: translateY(-2px); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+footer .footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--text);
+}
+footer p { font-size: 13px; color: var(--muted); }
+footer a { color: var(--muted); text-decoration: none; font-size: 13px; }
+footer a:hover { color: var(--text); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 16px 20px; }
+  .stat { padding: 28px 24px; }
+  .stat:first-child, .stat:last-child { border-radius: 12px; }
+  .step:first-child, .step:last-child { border-radius: 12px; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M3 6l3 12 3-8 3 8 3-12 3 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="19" cy="17" r="3" fill="#fdcb6e"/>
+        <path d="M18.5 15.5l1 1.5-1 1" stroke="#6c5ce7" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    WinBid
+  </a>
+  <a href="https://app.gumroad.com/l/winbid-pro" class="nav-cta">Get started — $15/mo</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    AI-powered proposal generator
+  </div>
+  <h1>Win more jobs.<br><span class="accent">Write less.</span><br><span class="green">Earn more.</span></h1>
+  <p class="hero-sub">WinBid reads any freelance job post and generates a personalized, winning proposal in 30 seconds. Works on Upwork, Freelancer, Fiverr & more.</p>
+  <div class="hero-btns">
+    <a href="https://app.gumroad.com/l/winbid-pro" class="btn-primary">Start winning jobs →</a>
+    <a href="#how-it-works" class="btn-ghost">See how it works</a>
+  </div>
+  <div class="platforms">
+    <p>Works on all major platforms</p>
+    <div class="platform-list">
+      <span class="platform-pill">Upwork</span>
+      <span class="platform-pill">Freelancer</span>
+      <span class="platform-pill">Fiverr</span>
+      <span class="platform-pill">Guru</span>
+      <span class="platform-pill">PeoplePerHour</span>
+    </div>
+  </div>
+</section>
+
+<div class="mockup-section">
+  <div class="mockup-wrap">
+    <div class="mockup-card">
+      <div class="mockup-bar">
+        <span>WinBid</span>
+        <div class="mockup-dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-field">
+          <label>License Key</label>
+          <div class="value">WINBID-XXXX-XXXX-XXXX</div>
+        </div>
+        <div class="mockup-field">
+          <label>About you (optional)</label>
+          <div class="value" style="color:var(--muted)">5+ years of freelancing experience...</div>
+        </div>
+        <div class="mockup-btn">Generate WinBid</div>
+        <div class="mockup-status">✓ Proposal ready!</div>
+        <div class="mockup-result">
+          I'm excited about this opportunity. With 5+ years building scalable React applications, I've delivered projects exactly like yours — on time and on budget. Your emphasis on clean code resonates with my approach...
+        </div>
+        <div class="mockup-copy">Copy to clipboard</div>
+      </div>
+    </div>
+    <div class="mockup-glow"></div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">30s</div>
+    <div class="stat-label">Per proposal</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5+</div>
+    <div class="stat-label">Platforms supported</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3×</div>
+    <div class="stat-label">More jobs won</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">$0</div>
+    <div class="stat-label">Setup cost</div>
+  </div>
+</div>
+
+<div class="section" id="how-it-works">
+  <span class="section-tag">How it works</span>
+  <h2 class="section-title">Three steps to your next job</h2>
+  <p class="section-sub">No learning curve. No complex setup. Just open a job post and click.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Open any job post</h3>
+      <p>Browse Upwork, Freelancer, Fiverr or any supported platform as you normally would.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>Click WinBid</h3>
+      <p>Click the WinBid extension icon. Our AI reads the job post and understands exactly what the client needs.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Send & win</h3>
+      <p>Copy your personalized proposal and send it. Stand out from generic templates and win more contracts.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <span class="section-tag">Features</span>
+  <h2 class="section-title">Everything you need to land more clients</h2>
+  <p class="section-sub">Built for freelancers who want to spend less time writing and more time working.</p>
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon" style="background:rgba(108,92,231,0.15)">⚡</div>
+      <h3>Instant proposals</h3>
+      <p>Generate a fully personalized, professional proposal in under 30 seconds. No more staring at a blank screen.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background:rgba(0,206,201,0.1)">🎯</div>
+      <h3>Truly personalized</h3>
+      <p>WinBid reads the actual job description and tailors every proposal to the specific client and project.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background:rgba(253,203,110,0.1)">🔒</div>
+      <h3>Private & secure</h3>
+      <p>Your proposals never leave your browser. We don't store your job data or generated content. Ever.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background:rgba(108,92,231,0.15)">🌍</div>
+      <h3>Multi-platform</h3>
+      <p>Works seamlessly across Upwork, Freelancer, Fiverr, Guru and PeoplePerHour from a single extension.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background:rgba(0,206,201,0.1)">✏️</div>
+      <h3>Your voice, amplified</h3>
+      <p>Add your background and experience once. WinBid weaves it naturally into every proposal it generates.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon" style="background:rgba(253,203,110,0.1)">📈</div>
+      <h3>Win rate boost</h3>
+      <p>Freelancers using WinBid report significantly higher response rates compared to manual proposals.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="pricing">
+  <span class="section-tag">Pricing</span>
+  <h2 class="section-title">Simple, honest pricing</h2>
+  <p class="section-sub">One plan, everything included. Cancel anytime.</p>
+  <div class="pricing-wrap">
+    <div class="pricing-card">
+      <div class="pricing-name">Free</div>
+      <div class="pricing-price"><sup>$</sup>0<sub>/mo</sub></div>
+      <div class="pricing-desc">Try before you commit</div>
+      <ul class="pricing-features">
+        <li>5 proposals per month</li>
+        <li>All platforms supported</li>
+        <li>Basic AI model</li>
+      </ul>
+      <a href="https://chromewebstore.google.com" class="pricing-btn ghost">Install free →</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="featured-badge">MOST POPULAR</div>
+      <div class="pricing-name">Pro</div>
+      <div class="pricing-price"><sup>$</sup>15<sub>/mo</sub></div>
+      <div class="pricing-desc">For serious freelancers</div>
+      <ul class="pricing-features">
+        <li>Unlimited proposals</li>
+        <li>GPT-4o powered</li>
+        <li>All platforms supported</li>
+        <li>Profile customization</li>
+        <li>Priority support</li>
+        <li>Cancel anytime</li>
+      </ul>
+      <a href="https://app.gumroad.com/l/winbid-pro" class="pricing-btn primary">Start winning →</a>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <span class="section-tag">FAQ</span>
+  <h2 class="section-title">Common questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <h4>Do I need technical knowledge to use WinBid?</h4>
+      <p>Not at all. Install the Chrome extension, enter your license key, and click Generate. That's it.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Will the proposals sound like me?</h4>
+      <p>Yes. You can add your background, skills, and experience once. WinBid incorporates it naturally into every proposal so it sounds authentic.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Which platforms does it work on?</h4>
+      <p>WinBid currently works on Upwork, Freelancer, Fiverr, Guru, and PeoplePerHour. More platforms are being added regularly.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Is my data safe?</h4>
+      <p>Absolutely. We never store your proposals or personal data. Everything is processed in real-time and discarded immediately.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can I cancel anytime?</h4>
+      <p>Yes, no questions asked. Cancel your subscription at any time from your Gumroad account.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Start winning more jobs today</h2>
+  <p>Join freelancers who are spending less time writing proposals and more time doing what they love.</p>
+  <a href="https://app.gumroad.com/l/winbid-pro" class="btn-white">Get WinBid Pro — $15/mo →</a>
+</div>
+
+<footer>
+  <div class="footer-logo">WinBid</div>
+  <p>© 2026 WinBid. All rights reserved.</p>
+  <div style="display:flex;gap:20px">
+    <a href="/privacy">Privacy</a>
+    <a href="mailto:hello@getwinbid.com">hello@getwinbid.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
