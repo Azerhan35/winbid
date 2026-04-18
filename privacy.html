@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — WinBid</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060608;
+  --surface: #0e0e12;
+  --border: rgba(255,255,255,0.07);
+  --accent: #6c5ce7;
+  --accent2: #a29bfe;
+  --text: #f0f0f5;
+  --muted: rgba(240,240,245,0.45);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+}
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(6,6,8,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--text);
+  text-decoration: none;
+}
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--accent);
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-icon svg { width: 20px; height: 20px; }
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 120px 24px 80px;
+}
+.page-tag {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent2);
+  margin-bottom: 16px;
+  display: block;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+.updated {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 48px;
+}
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 40px 0 12px;
+  color: var(--text);
+}
+p {
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+ul {
+  color: var(--muted);
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+ul li { margin-bottom: 8px; }
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 48px 0;
+}
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+footer p { font-size: 13px; color: var(--muted); margin: 0; }
+footer a { color: var(--muted); text-decoration: none; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M3 6l3 12 3-8 3 8 3-12 3 8" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="19" cy="17" r="3" fill="#fdcb6e"/>
+      </svg>
+    </div>
+    WinBid
+  </a>
+</nav>
+
+<div class="main">
+  <span class="page-tag">Legal</span>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: April 18, 2026</p>
+
+  <p>WinBid ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our Chrome extension and website at getwinbid.com.</p>
+
+  <h2>What data we collect</h2>
+  <p>We collect only the minimum data necessary to provide our service:</p>
+  <ul>
+    <li><strong>Email address</strong> — collected when you purchase a subscription through Gumroad, used to send your license key.</li>
+    <li><strong>License key</strong> — stored locally in your browser via Chrome's storage API. We store a copy in our database to verify your subscription.</li>
+  </ul>
+
+  <h2>What data we do NOT collect</h2>
+  <ul>
+    <li>We do not collect, store, or transmit the content of any job posts you view.</li>
+    <li>We do not store the proposals generated for you.</li>
+    <li>We do not track your browsing history or activity on freelance platforms.</li>
+    <li>We do not collect your name, address, or payment information (payments are handled by Gumroad).</li>
+  </ul>
+
+  <h2>How proposals are generated</h2>
+  <p>When you click "Generate WinBid", the job post text from the current page is sent to our server, which forwards it to OpenAI's API to generate a proposal. This data is processed in real-time and is not stored by us or OpenAI beyond what is necessary for processing.</p>
+
+  <h2>Third-party services</h2>
+  <p>We use the following third-party services:</p>
+  <ul>
+    <li><strong>OpenAI</strong> — for AI proposal generation. See <a href="https://openai.com/privacy" target="_blank">OpenAI's Privacy Policy</a>.</li>
+    <li><strong>Gumroad</strong> — for payment processing. See <a href="https://gumroad.com/privacy" target="_blank">Gumroad's Privacy Policy</a>.</li>
+    <li><strong>Supabase</strong> — for license key storage. See <a href="https://supabase.com/privacy" target="_blank">Supabase's Privacy Policy</a>.</li>
+    <li><strong>Resend</strong> — for transactional emails. See <a href="https://resend.com/privacy" target="_blank">Resend's Privacy Policy</a>.</li>
+  </ul>
+
+  <h2>Data security</h2>
+  <p>Your license key is stored securely in our database. We use HTTPS for all data transmission. We do not sell, rent, or share your personal data with third parties except as described in this policy.</p>
+
+  <h2>Data retention</h2>
+  <p>We retain your email address and license key for as long as your subscription is active. You may request deletion of your data at any time by contacting us.</p>
+
+  <h2>Your rights</h2>
+  <p>You have the right to:</p>
+  <ul>
+    <li>Request access to the data we hold about you</li>
+    <li>Request deletion of your data</li>
+    <li>Cancel your subscription at any time</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:hello@getwinbid.com">hello@getwinbid.com</a>.</p>
+
+  <hr class="divider">
+
+  <p>By using WinBid, you agree to this Privacy Policy.</p>
+</div>
+
+<footer>
+  <a href="/" style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:var(--text)">WinBid</a>
+  <p>© 2026 WinBid. All rights reserved.</p>
+  <a href="mailto:hello@getwinbid.com">hello@getwinbid.com</a>
+</footer>
+
+</body>
+</html>
