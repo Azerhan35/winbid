@@ -1,6 +1,7 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/privacy", "destination": "/privacy.html" }
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/blog/how-to-write-winning-upwork-proposals", "destination": "/blog/how-to-write-winning-upwork-proposals.html" }
   ]
 }
